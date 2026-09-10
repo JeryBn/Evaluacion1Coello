@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Historias Clínicas</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<h1>Historias Clínicas Registradas</h1>
+
+<div class="contenedor">
+    <a th:href="@{/historias-clinicas/nueva}">+ Crear nueva historia clínica</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>N° Historia</th>
+            <th>Fecha Apertura</th>
+            <th>Estado</th>
+            <th>Paciente</th>
+            <th>DNI</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="historia : ${historias}">
+            <td th:text="${historia.numeroHistoria}"></td>
+            <td th:text="${historia.fechaApertura}"></td>
+            <td th:text="${historia.estado}"></td>
+            <td th:text="${historia.paciente.nombres} + ' ' + ${historia.paciente.apellidos}"></td>
+            <td th:text="${historia.paciente.dni}"></td>
+            <td>
+                <a th:href="@{/historias-clinicas/paciente/{id}(id=${historia.paciente.id})}">Ver detalle</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
