@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Historia Clínica</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<h1>Detalle de Historia Clínica</h1>
+
+<div class="contenedor">
+
+    <div th:if="${historia != null}" class="dato">
+        <p><strong>N° Historia:</strong> <span th:text="${historia.numeroHistoria}"></span></p>
+        <p><strong>Fecha de apertura:</strong> <span th:text="${historia.fechaApertura}"></span></p>
+        <p><strong>Estado:</strong> <span th:text="${historia.estado}"></span></p>
+
+        <h3>Datos del paciente</h3>
+        <p><strong>Nombres:</strong> <span th:text="${historia.paciente.nombres}"></span></p>
+        <p><strong>Apellidos:</strong> <span th:text="${historia.paciente.apellidos}"></span></p>
+        <p><strong>DNI:</strong> <span th:text="${historia.paciente.dni}"></span></p>
+        <p><strong>Sexo:</strong> <span th:text="${historia.paciente.sexo}"></span></p>
+        <p><strong>Teléfono:</strong> <span th:text="${historia.paciente.telefono}"></span></p>
+    </div>
+
+    <div th:if="${historia == null}" class="aviso">
+        <p>Este paciente aún no tiene una historia clínica registrada.</p>
+    </div>
+    <a th:if="${historia != null}" th:href="@{/historias-clinicas/{id}/atenciones(id=${historia.id})}">Ver historial de atenciones</a>
+    <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
+</div>
+
+</body>
+</html>

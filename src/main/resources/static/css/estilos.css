@@ -1,0 +1,138 @@
+:root {
+    --azul-clinico: #1d5f7a;
+    --azul-oscuro: #123b4d;
+    --verde-salud: #4a9b8e;
+    --gris-fondo: #f4f7f8;
+    --gris-borde: #d9e2e4;
+    --texto: #2b3a3e;
+    --blanco: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--gris-fondo);
+    color: var(--texto);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: var(--azul-clinico);
+    color: var(--blanco);
+    margin: 0;
+    padding: 24px 40px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+h3 {
+    color: var(--azul-oscuro);
+    border-bottom: 2px solid var(--verde-salud);
+    padding-bottom: 6px;
+    display: inline-block;
+}
+
+.contenedor {
+    max-width: 900px;
+    margin: 32px auto;
+    background-color: var(--blanco);
+    padding: 32px 40px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+a {
+    color: var(--azul-clinico);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.enlace-volver {
+    display: inline-block;
+    margin-top: 24px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+}
+
+select, input, button {
+    font-size: 1rem;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--gris-borde);
+}
+
+select {
+    min-width: 320px;
+    margin-right: 12px;
+    background-color: var(--blanco);
+}
+
+button {
+    background-color: var(--verde-salud);
+    color: var(--blanco);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: var(--azul-clinico);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+thead {
+    background-color: var(--azul-clinico);
+    color: var(--blanco);
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+tbody tr:hover {
+    background-color: var(--gris-fondo);
+}
+
+.dato p {
+    margin: 6px 0;
+}
+
+.dato strong {
+    color: var(--azul-oscuro);
+    min-width: 140px;
+    display: inline-block;
+}
+
+.aviso {
+    background-color: #fff4e5;
+    border-left: 4px solid #d9822b;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+input {
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 18px;
+    background-color: var(--blanco);
+}

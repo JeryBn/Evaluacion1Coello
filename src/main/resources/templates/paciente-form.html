@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Paciente</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<h1>Registrar Nuevo Paciente</h1>
+<main class="contenedor">
+    <form th:action="@{/historias-clinicas/pacientes/nuevo}" th:object="${paciente}" method="post">
+        <label for="dni">DNI</label>
+        <input id="dni" th:field="*{dni}" required maxlength="20">
+
+        <label for="nombres">Nombres</label>
+        <input id="nombres" th:field="*{nombres}" required maxlength="100">
+
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" th:field="*{apellidos}" required maxlength="100">
+
+        <label for="sexo">Sexo</label>
+        <select id="sexo" th:field="*{sexo}">
+            <option value="">Seleccionar</option>
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label for="telefono">Telefono</label>
+        <input id="telefono" th:field="*{telefono}" maxlength="20">
+
+        <button type="submit">Guardar paciente</button>
+    </form>
+    <a class="enlace-volver" th:href="@{/historias-clinicas/nueva}">Volver a crear historia clinica</a>
+</main>
+</body>
+</html>

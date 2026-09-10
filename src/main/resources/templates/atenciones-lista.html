@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Atenciones</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<h1>Historial de Atenciones</h1>
+
+<div class="contenedor">
+
+    <h3>Registrar nueva atención</h3>
+    <form th:action="@{/historias-clinicas/{id}/atenciones(id=${historiaClinicaId})}" method="post">
+        <label for="motivo">Motivo de la atención</label>
+        <select name="motivo" id="motivo">
+            <option value="Consulta general">Consulta general</option>
+            <option value="Control">Control</option>
+            <option value="Emergencia">Emergencia</option>
+            <option value="Seguimiento de tratamiento">Seguimiento de tratamiento</option>
+        </select>
+
+        <label for="observaciones">Observaciones (opcional)</label>
+        <input type="text" name="observaciones" id="observaciones" style="width:100%; padding:10px; margin-bottom:16px; border-radius:6px; border:1px solid var(--gris-borde);">
+
+        <button type="submit">Registrar Atención</button>
+    </form>
+
+    <h3>Atenciones registradas</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Motivo</th>
+            <th>Observaciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="atencion : ${atenciones}">
+            <td th:text="${atencion.fecha}"></td>
+            <td th:text="${atencion.motivo}"></td>
+            <td th:text="${atencion.observaciones}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Historia Clínica</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<h1>Crear Historia Clínica</h1>
+
+<div class="contenedor">
+
+    <div th:if="${error}" class="aviso">
+        <p th:text="${error}"></p>
+    </div>
+
+    <p class="aviso">No encuentras al paciente? <a th:href="@{/historias-clinicas/pacientes/nuevo}">Registrar nuevo paciente</a></p>
+
+    <form th:action="@{/historias-clinicas/nueva}" method="post">
+        <label for="pacienteId">Seleccione paciente</label>
+        <select name="pacienteId" id="pacienteId">
+            <option th:each="paciente : ${pacientes}"
+                    th:value="${paciente.id}"
+                    th:text="${paciente.nombres} + ' ' + ${paciente.apellidos} + ' - DNI: ' + ${paciente.dni}">
+            </option>
+        </select>
+        <button type="submit">Crear Historia Clínica</button>
+    </form>
+
+    <a class="enlace-volver" th:href="@{/historias-clinicas}">Ver listado de historias clínicas</a>
+</div>
+
+</body>
+</html>

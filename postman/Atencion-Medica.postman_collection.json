@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "Historia Clinica - Atencion Medica",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api/atencion-medica" },
+    { "key": "coreUrl", "value": "http://localhost:8080/api" },
+    { "key": "pacienteId", "value": "1" },
+    { "key": "historiaId", "value": "1" },
+    { "key": "consultaId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "01 Crear paciente",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('pacienteId', pm.response.json().id);"] } }],
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"dni\": \"87654321\",\n  \"nombres\": \"Ana\",\n  \"apellidos\": \"Postman\",\n  \"sexo\": \"F\",\n  \"telefono\": \"999999999\"\n}" }, "url": "{{coreUrl}}/pacientes" }
+    },
+    {
+      "name": "02 Crear historia clinica",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('historiaId', pm.response.json().id);"] } }],
+      "request": { "method": "POST", "url": "{{coreUrl}}/historias-clinicas/paciente/{{pacienteId}}" }
+    },
+    {
+      "name": "RF-HC-08 a 11 Registrar consulta",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"historiaClinicaId\": {{historiaId}},\n  \"codigoCita\": \"CITA-POSTMAN-001\",\n  \"medicoId\": 10,\n  \"nombreMedico\": \"Dra. Laura Gomez\",\n  \"especialidad\": \"Medicina General\",\n  \"motivoConsulta\": \"Dolor de cabeza y fiebre\",\n  \"anamnesis\": \"Paciente refiere cefalea desde hace dos dias.\",\n  \"examenFisico\": \"Paciente consciente y estable.\",\n  \"evaluacionClinica\": \"Cuadro respiratorio agudo.\",\n  \"observaciones\": \"Control en 48 horas.\"\n}" }, "url": "{{baseUrl}}/consultas" }
+    },
+    {
+      "name": "RF-HC-12 Registrar signos vitales",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"pesoKg\": 68.5,\n  \"tallaMetros\": 1.7,\n  \"presionArterial\": \"120/80\",\n  \"frecuenciaCardiaca\": 78,\n  \"frecuenciaRespiratoria\": 18,\n  \"temperatura\": 38.1,\n  \"saturacionOxigeno\": 97\n}" }, "url": "{{baseUrl}}/consultas/{{consultaId}}/signos-vitales" }
+    },
+    {
+      "name": "RF-HC-13 Registrar diagnostico",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"codigoCie10\": \"J06.9\",\n  \"descripcion\": \"Infeccion aguda de vias respiratorias superiores\",\n  \"tipoDiagnostico\": \"PRINCIPAL\",\n  \"observaciones\": \"Diagnostico presuntivo.\"\n}" }, "url": "{{baseUrl}}/consultas/{{consultaId}}/diagnosticos" }
+    },
+    {
+      "name": "RF-HC-14 Registrar tratamiento",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"tratamientoIndicado\": \"Acetaminofen 500 mg\",\n  \"indicaciones\": \"Tomar una tableta cada 8 horas si hay fiebre.\",\n  \"duracion\": \"3 dias\",\n  \"recomendaciones\": \"Reposo e hidratacion.\",\n  \"fechaInicio\": \"2026-09-09\",\n  \"fechaFinalizacion\": \"2026-09-12\"\n}" }, "url": "{{baseUrl}}/consultas/{{consultaId}}/tratamientos" }
+    },
+    {
+      "name": "RF-HC-15 Registrar evolucion",
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"descripcion\": \"Paciente estable al finalizar la consulta.\",\n  \"plan\": \"Seguimiento en 48 horas.\",\n  \"medicoResponsable\": \"Dra. Laura Gomez\"\n}" }, "url": "{{baseUrl}}/consultas/{{consultaId}}/evoluciones" }
+    },
+    {
+      "name": "Cerrar consulta",
+      "request": { "method": "PATCH", "url": "{{baseUrl}}/consultas/{{consultaId}}/cerrar" }
+    }
+  ]
+}
