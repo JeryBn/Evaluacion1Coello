@@ -9,7 +9,7 @@ API REST y aplicacion web con Spring Boot, Thymeleaf, JPA e Hibernate para el la
 | Pacientes e Historia Clinica | Equipo | Integrado | `/historias-clinicas`, `/api/pacientes`, `/api/historias-clinicas` |
 | Atenciones iniciales | Equipo | Integrado | `/historias-clinicas/{id}/atenciones` |
 | Atencion Medica (RF-HC-08 a RF-HC-15) | Coello | Integrado | `/atencion-medica`, `/api/atencion-medica` |
-| Antecedentes | Pendiente de integrar | Pendiente | Por definir al subir el modulo |
+| Antecedentes y alergias | Equipo | Integrado | `/historias-clinicas/{id}/antecedentes`, `/api/historias-clinicas/{id}/antecedentes`, `/api/historias-clinicas/{id}/alergias` |
 
 La integracion vigente usa una sola entidad compartida: una `ConsultaMedica` pertenece a una `HistoriaClinica` creada desde el modulo de Pacientes e Historia Clinica. No se deben crear historias clinicas desde el modulo de Atencion Medica.
 
@@ -32,6 +32,12 @@ La integracion vigente usa una sola entidad compartida: una `ConsultaMedica` per
 - **RF-HC-13:** registrar diagnosticos.
 - **RF-HC-14:** registrar tratamientos.
 - **RF-HC-15:** registrar evoluciones medicas.
+
+### Antecedentes y alergias
+
+- Registro de antecedentes personales y familiares asociados a una historia clinica existente.
+- Registro de alergias asociado a la misma historia clinica.
+- Vistas Thymeleaf y endpoints REST integrados en la aplicacion principal.
 
 ## Base de datos
 
@@ -59,6 +65,8 @@ paciente -> historia_clinica -> consultas_medicas
                                   -> diagnosticos
                                   -> tratamientos
                                   -> evoluciones_medicas
+                         -> antecedentes
+                         -> alergias
 ```
 
 La tabla `historias_clinicas` se conserva temporalmente sin datos por compatibilidad con pruebas anteriores; el flujo actual no la usa. No debe usarse para registros nuevos.

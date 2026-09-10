@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antecedentes y alergias</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<main class="contenedor">
+    <h1>Antecedentes y alergias</h1>
+    <p th:text="'Historia clinica ID: ' + ${historiaId}"></p>
+    <section class="dato">
+        <h2>Registrar antecedente</h2>
+        <form th:action="@{/historias-clinicas/{id}/antecedentes(id=${historiaId})}" method="post">
+            <label>Tipo
+                <select name="tipo" required><option value="PERSONAL">Personal</option><option value="FAMILIAR">Familiar</option></select>
+            </label>
+            <label>Descripcion <textarea name="descripcion" required></textarea></label>
+            <label>Fecha de registro <input type="date" name="fechaRegistro" required></label>
+            <button type="submit">Guardar antecedente</button>
+        </form>
+    </section>
+    <section class="dato">
+        <h2>Registrar alergia</h2>
+        <form th:action="@{/historias-clinicas/{id}/alergias(id=${historiaId})}" method="post">
+            <label>Alergia <input name="alergia" required></label>
+            <label>Tipo <input name="tipo" required></label>
+            <label>Reaccion <textarea name="reaccion" required></textarea></label>
+            <label>Observacion <textarea name="observacion"></textarea></label>
+            <label>Fecha de registro <input type="date" name="fechaRegistro" required></label>
+            <button type="submit">Guardar alergia</button>
+        </form>
+    </section>
+    <section class="dato"><h2>Antecedentes registrados</h2><p th:if="${#lists.isEmpty(antecedentes)}">No hay antecedentes registrados.</p><ul><li th:each="item : ${antecedentes}" th:text="${item.tipo + ': ' + item.descripcion}"></li></ul></section>
+    <section class="dato"><h2>Alergias registradas</h2><p th:if="${#lists.isEmpty(alergias)}">No hay alergias registradas.</p><ul><li th:each="item : ${alergias}" th:text="${item.alergia + ' - ' + item.reaccion}"></li></ul></section>
+    <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
+</main>
+</body>
+</html>
