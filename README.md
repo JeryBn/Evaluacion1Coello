@@ -13,6 +13,12 @@ API REST y aplicacion web con Spring Boot, Thymeleaf, JPA e Hibernate para el la
 
 La integracion vigente usa una sola entidad compartida: una `ConsultaMedica` pertenece a una `HistoriaClinica` creada desde el modulo de Pacientes e Historia Clinica. No se deben crear historias clinicas desde el modulo de Atencion Medica.
 
+## Organizacion del repositorio
+
+- La aplicacion integrada y ejecutable se encuentra en la raiz del repositorio: `src/`, `pom.xml`, `database/` y `postman/`.
+- La carpeta `antecedentes/` conserva el proyecto original entregado por el integrante responsable. Sus funcionalidades ya estan integradas en la aplicacion principal bajo `src/main/java/com/tecsup/historiaclinica/antecedentes/`; no debe iniciarse como una segunda aplicacion.
+- La navegacion de Thymeleaf permite recorrer Inicio, Historias clinicas, Atenciones, Antecedentes y alergias, y Atencion medica desde una sola instancia de Spring Boot.
+
 ## Requerimientos implementados
 
 ### Pacientes, historia clinica y atenciones iniciales
@@ -42,6 +48,8 @@ La integracion vigente usa una sola entidad compartida: una `ConsultaMedica` per
 ## Base de datos
 
 Todos los modulos usan la base `historia_clinica` en MySQL/MariaDB de XAMPP.
+
+La exportacion completa y verificable de la estructura integrada se encuentra en [`database/historia_clinica.sql`](database/historia_clinica.sql). Incluye las tablas y relaciones de Pacientes, Historia Clinica, Atenciones, Antecedentes, Alergias y Atencion Medica.
 
 ```sql
 CREATE DATABASE IF NOT EXISTS historia_clinica
@@ -114,6 +122,21 @@ La coleccion de Postman para la parte de Atencion Medica se encuentra en `postma
 | `POST` | `/api/atencion-medica/consultas/{id}/tratamientos` | Registrar tratamiento |
 | `POST` | `/api/atencion-medica/consultas/{id}/evoluciones` | Registrar evolucion |
 | `PATCH` | `/api/atencion-medica/consultas/{id}/cerrar` | Cerrar consulta |
+| `GET` | `/api/historias-clinicas/{id}/antecedentes` | Listar antecedentes de una historia |
+| `POST` | `/api/historias-clinicas/{id}/antecedentes` | Registrar antecedente personal o familiar |
+| `GET` | `/api/historias-clinicas/{id}/alergias` | Listar alergias de una historia |
+| `POST` | `/api/historias-clinicas/{id}/alergias` | Registrar alergia |
+
+## Rutas web Thymeleaf
+
+| Ruta | Uso |
+| --- | --- |
+| `/` | Inicio y acceso a los modulos |
+| `/historias-clinicas` | Listar historias y crear pacientes o historias clinicas |
+| `/historias-clinicas/paciente/{pacienteId}` | Ver detalle de una historia clinica |
+| `/historias-clinicas/{id}/atenciones` | Registrar y consultar atenciones iniciales |
+| `/historias-clinicas/{id}/antecedentes` | Registrar y consultar antecedentes y alergias |
+| `/atencion-medica` | Registrar consultas medicas y sus componentes clinicos |
 
 ## Reglas de integracion del equipo
 

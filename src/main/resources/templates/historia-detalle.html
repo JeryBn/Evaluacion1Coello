@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 
 <h1>Detalle de Historia Clínica</h1>
 
@@ -29,6 +30,7 @@
     </div>
     <a th:if="${historia != null}" th:href="@{/historias-clinicas/{id}/atenciones(id=${historia.id})}">Ver historial de atenciones</a>
     <a th:if="${historia != null}" th:href="@{/historias-clinicas/{id}/antecedentes(id=${historia.id})}">Ver antecedentes y alergias</a>
+    <a th:if="${historia != null}" th:href="@{/atencion-medica}">Continuar a atención médica</a>
     <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
 </div>
 

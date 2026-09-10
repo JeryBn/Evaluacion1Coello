@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 <h1>Registrar Nuevo Paciente</h1>
 <main class="contenedor">
     <form th:action="@{/historias-clinicas/pacientes/nuevo}" th:object="${paciente}" method="post">

@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 
 <h1>Historial de Atenciones</h1>
 
@@ -46,6 +47,7 @@
     </table>
 
     <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
+    <a class="enlace-siguiente" th:href="@{/atencion-medica}">Continuar a atención médica</a>
 </div>
 
 </body>

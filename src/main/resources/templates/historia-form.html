@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 
 <h1>Crear Historia Clínica</h1>
 
@@ -29,6 +30,7 @@
     </form>
 
     <a class="enlace-volver" th:href="@{/historias-clinicas}">Ver listado de historias clínicas</a>
+    <a class="enlace-siguiente" th:href="@{/historias-clinicas/pacientes/nuevo}">Registrar paciente</a>
 </div>
 
 </body>

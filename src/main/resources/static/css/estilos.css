@@ -20,6 +20,12 @@ body {
     padding: 0;
 }
 
+.navegacion-flujo { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:12px 40px; background:var(--blanco); border-bottom:1px solid var(--gris-borde); }
+.navegacion-flujo a, .navegacion-flujo button { font-size:.92rem; padding:8px 12px; border-radius:5px; }
+.navegacion-flujo button { background:var(--azul-clinico); }
+.navegacion-flujo .nav-atras { margin-left:auto; }
+.enlace-siguiente { display:inline-block; margin:24px 0 0 16px; }
+
 h1 {
     background-color: var(--azul-clinico);
     color: var(--blanco);

@@ -6,11 +6,13 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 
 <h1>Historias Clínicas Registradas</h1>
 
 <div class="contenedor">
     <a th:href="@{/historias-clinicas/nueva}">+ Crear nueva historia clínica</a>
+    <a class="enlace-siguiente" th:href="@{/historias-clinicas/pacientes/nuevo}">Registrar paciente</a>
 
     <table>
         <thead>

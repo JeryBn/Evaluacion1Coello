@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
 <main class="contenedor">
     <h1>Antecedentes y alergias</h1>
     <p th:text="'Historia clinica ID: ' + ${historiaId}"></p>
@@ -35,6 +36,7 @@
     <section class="dato"><h2>Antecedentes registrados</h2><p th:if="${#lists.isEmpty(antecedentes)}">No hay antecedentes registrados.</p><ul><li th:each="item : ${antecedentes}" th:text="${item.tipo + ': ' + item.descripcion}"></li></ul></section>
     <section class="dato"><h2>Alergias registradas</h2><p th:if="${#lists.isEmpty(alergias)}">No hay alergias registradas.</p><ul><li th:each="item : ${alergias}" th:text="${item.alergia + ' - ' + item.reaccion}"></li></ul></section>
     <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
+    <a class="enlace-siguiente" th:href="@{/atencion-medica}">Continuar a atención médica</a>
 </main>
 </body>
 </html>

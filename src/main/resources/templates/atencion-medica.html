@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atencion Medica | Historia Clinica</title>
     <link rel="stylesheet" th:href="@{/css/atencion-medica.css}">
+    <link rel="stylesheet" th:href="@{/css/navegacion.css}">
 </head>
 <body>
+<nav class="navegacion-flujo atencion-nav">
+    <a th:href="@{/}">Inicio</a>
+    <a th:href="@{/historias-clinicas}">Historias clínicas</a>
+    <a class="nav-atras" href="#" onclick="history.back(); return false;">← Atrás</a>
+    <a href="#" onclick="history.forward(); return false;">Adelante →</a>
+</nav>
 <header class="topbar">
     <div><strong>Historia Clinica</strong><span>Atencion Medica</span></div>
     <div class="connection"><i></i> API conectada a historia_clinica</div>
