@@ -65,8 +65,8 @@ paciente -> historia_clinica -> consultas_medicas
                                   -> diagnosticos
                                   -> tratamientos
                                   -> evoluciones_medicas
-                         -> antecedentes
-                         -> alergias
+                         -> antecedente
+                         -> alergia
 ```
 
 La tabla `historias_clinicas` se conserva temporalmente sin datos por compatibilidad con pruebas anteriores; el flujo actual no la usa. No debe usarse para registros nuevos.

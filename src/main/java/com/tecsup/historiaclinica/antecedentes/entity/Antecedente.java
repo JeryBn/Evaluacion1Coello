@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "antecedentes")
+@Table(name = "antecedente")
 public class Antecedente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
