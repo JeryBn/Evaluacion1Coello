@@ -8,10 +8,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = {"com.tecsup.historiaclinica", "com.coello.historiaclinica.atencionmedica"})
 @EntityScan(basePackages = {
         "com.tecsup.historiaclinica.model",
+        "com.tecsup.historiaclinica.antecedentes.entity",
         "com.coello.historiaclinica.atencionmedica.entity"
 })
 @EnableJpaRepositories(basePackages = {
         "com.tecsup.historiaclinica.repository",
+        "com.tecsup.historiaclinica.antecedentes.repository",
         "com.coello.historiaclinica.atencionmedica.repository"
 })
 public class HistoriaclinicaApplication {
