@@ -10,6 +10,38 @@ Controller -> Service -> Repository -> Base de datos
 
 La aplicacion utiliza Inversion de Control (IoC), Inyeccion de Dependencias (DI), persistencia con JPA/Hibernate, endpoints REST y vistas web con Thymeleaf.
 
+## Inicio rapido para el profesor
+
+Estas son las instrucciones minimas para descargar, ejecutar y comprobar el sistema desde el enlace del repositorio.
+
+1. Instalar Java 21, Maven 3.9 o superior, Git y MySQL/MariaDB.
+2. Clonar el proyecto:
+
+```powershell
+git clone https://github.com/JeryBn/Evaluacion1Coello.git
+cd Evaluacion1Coello
+```
+
+3. Iniciar MySQL y crear la base compartida:
+
+```sql
+CREATE DATABASE IF NOT EXISTS historia_clinica
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+```
+
+4. Importar `database/historia_clinica.sql` desde MySQL Workbench. Este archivo contiene la estructura completa de las tablas y relaciones, sin datos personales ni clinicos.
+5. Desde la raiz del repositorio, donde esta el `pom.xml`, iniciar la aplicacion:
+
+```powershell
+./mvnw.cmd spring-boot:run
+```
+
+6. Abrir [http://localhost:8080](http://localhost:8080). Si el puerto esta ocupado, iniciar con `--server.port=8081` y abrir [http://localhost:8081](http://localhost:8081).
+7. Para validar la integracion, registrar un paciente, crear su historia clinica, abrir su detalle y probar Atenciones, Antecedentes y alergias, y Atencion medica en ese orden.
+
+> Importante: la aplicacion final se ejecuta desde la raiz del repositorio. La carpeta `antecedentes/` es el respaldo de la entrega individual original y no debe iniciarse como una segunda aplicacion.
+
 ## Integracion del equipo
 
 El trabajo de los tres integrantes se encuentra integrado en una sola aplicacion Spring Boot que se ejecuta desde la raiz del repositorio. Todos los modulos comparten la base de datos `historia_clinica` y reutilizan las entidades `Paciente` e `HistoriaClinica`.
