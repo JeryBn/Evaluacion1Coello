@@ -80,6 +80,8 @@ Desde el inicio se puede acceder a:
 - **Historias clinicas y atenciones iniciales:** crear paciente, abrir su historia clinica y registrar una atencion inicial.
 - **Atencion medica:** usar el ID de una historia clinica ya creada para registrar la consulta, signos vitales, diagnosticos, tratamientos y evoluciones.
 
+Para registrar un paciente desde la interfaz, abrir **Historias clinicas y atenciones iniciales**, seleccionar **Crear nueva historia clinica** y usar el enlace **Registrar nuevo paciente**. Al guardar, el paciente aparecera en el selector para crear su historia clinica.
+
 ## Flujo de prueba integrado
 
 1. Crear un paciente: `POST /api/pacientes`.

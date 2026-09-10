@@ -3,6 +3,7 @@ package com.tecsup.historiaclinica.controller;
 
 import com.tecsup.historiaclinica.service.HistoriaClinicaService;
 import com.tecsup.historiaclinica.service.PacienteService;
+import com.tecsup.historiaclinica.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,18 @@ public class HistoriaClinicaViewController {
     public String mostrarFormulario(Model model) {
         model.addAttribute("pacientes", pacienteService.listarTodos());
         return "historia-form";
+    }
+
+    @GetMapping("/pacientes/nuevo")
+    public String mostrarFormularioPaciente(Model model) {
+        model.addAttribute("paciente", new Paciente());
+        return "paciente-form";
+    }
+
+    @PostMapping("/pacientes/nuevo")
+    public String crearPaciente(@ModelAttribute Paciente paciente) {
+        pacienteService.crear(paciente);
+        return "redirect:/historias-clinicas/nueva";
     }
 
 

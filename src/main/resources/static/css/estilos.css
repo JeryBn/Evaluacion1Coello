@@ -67,7 +67,7 @@ label {
     color: var(--azul-oscuro);
 }
 
-select, button {
+select, input, button {
     font-size: 1rem;
     padding: 10px 14px;
     border-radius: 6px;
@@ -128,4 +128,11 @@ tbody tr:hover {
     border-left: 4px solid #d9822b;
     padding: 16px;
     border-radius: 4px;
+}
+
+input {
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 18px;
+    background-color: var(--blanco);
 }
