@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "AtencionHistoriaClinica")
 @Table(name = "historias_clinicas")
 public class HistoriaClinica {
 
