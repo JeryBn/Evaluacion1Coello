@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Sistema de Historia Clínica
+    </title>
+
+
+    <style>
+
+
+        *{
+            box-sizing:border-box;
+        }
+
+
+        body{
+
+            margin:0;
+            font-family:'Segoe UI', Arial, sans-serif;
+            background:#f5f8fb;
+
+        }
+
+
+        /* ENCABEZADO */
+
+        .header{
+
+            background:#0B4F6C;
+            color:white;
+            padding:35px;
+            text-align:center;
+
+        }
+
+
+        .header h1{
+
+            margin:0;
+            font-size:32px;
+            font-weight:600;
+
+        }
+
+
+        .header p{
+
+            margin-top:10px;
+            font-size:17px;
+            color:#d9edf7;
+
+        }
+
+
+
+        /* CONTENEDOR */
+
+        .container{
+
+            width:90%;
+            max-width:1200px;
+
+            margin:45px auto;
+
+        }
+
+
+
+        .subtitle{
+
+            text-align:center;
+            color:#34495e;
+
+            font-size:20px;
+
+            margin-bottom:35px;
+
+        }
+
+
+
+        /* TARJETAS */
+
+
+        .cards{
+
+            display:flex;
+            justify-content:center;
+            gap:30px;
+            flex-wrap:wrap;
+
+        }
+
+
+        .card{
+
+            background:white;
+
+            width:320px;
+
+            min-height:320px;
+
+            border-radius:15px;
+
+            padding:30px;
+
+            text-align:center;
+
+            box-shadow:
+                    0px 8px 20px rgba(0,0,0,0.08);
+
+            border-top:5px solid #0B4F6C;
+
+        }
+
+
+
+        .card h2{
+
+            color:#0B4F6C;
+
+            font-size:22px;
+
+        }
+
+
+
+        .card p{
+
+            color:#555;
+
+            line-height:1.6;
+
+            min-height:90px;
+
+        }
+
+
+
+        /* BOTON */
+
+
+        .btn{
+
+            display:inline-block;
+
+            margin-top:20px;
+
+            background:#0B4F6C;
+
+            color:white;
+
+            text-decoration:none;
+
+            padding:12px 35px;
+
+            border-radius:8px;
+
+            font-weight:500;
+
+        }
+
+
+
+        .btn:hover{
+
+            background:#083B50;
+
+        }
+
+
+
+        /* PIE */
+
+        .footer{
+
+            margin-top:60px;
+
+            background:#0B4F6C;
+
+            color:white;
+
+            text-align:center;
+
+            padding:18px;
+
+            font-size:14px;
+
+        }
+
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>
+        Sistema de Historia Clínica
+    </h1>
+
+    <p>
+        Módulo de antecedentes médicos y alergias
+    </p>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <div class="subtitle">
+
+        Seleccione el módulo que desea gestionar
+
+    </div>
+
+
+
+    <div class="cards">
+
+
+
+        <div class="card">
+
+            <h2>
+                Antecedentes Personales
+            </h2>
+
+
+            <p>
+
+                Registro de enfermedades previas,
+                cirugías, hospitalizaciones,
+                traumatismos y otros antecedentes
+                del paciente.
+
+            </p>
+
+
+            <a class="btn"
+               th:href="@{/antecedentes/personales}">
+
+                Ingresar
+
+            </a>
+
+
+        </div>
+
+
+
+
+        <div class="card">
+
+
+            <h2>
+                Antecedentes Familiares
+            </h2>
+
+
+            <p>
+
+                Registro de antecedentes familiares
+                como diabetes, hipertensión,
+                cáncer y enfermedades hereditarias.
+
+            </p>
+
+
+            <a class="btn"
+               th:href="@{/antecedentes/familiares}">
+
+                Ingresar
+
+            </a>
+
+
+        </div>
+
+
+
+
+        <div class="card">
+
+
+            <h2>
+                Alergias
+            </h2>
+
+
+            <p>
+
+                Registro de alergias,
+                tipo, reacción,
+                observaciones y fecha de registro.
+
+            </p>
+
+
+            <a class="btn"
+               th:href="@{/alergias}">
+
+                Ingresar
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<footer class="footer">
+
+    Sistema de Historia Clínica Digital
+
+</footer>
+
+
+</body>
+
+</html>

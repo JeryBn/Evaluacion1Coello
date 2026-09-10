@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Antecedentes Personales
+    </title>
+
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+        }
+
+
+        body{
+
+            margin:0;
+
+            font-family:'Segoe UI',Arial,sans-serif;
+
+            background:#f5f8fb;
+
+        }
+
+
+        .header{
+
+            background:#0B4F6C;
+
+            color:white;
+
+            padding:30px;
+
+            text-align:center;
+
+        }
+
+
+
+        .header h1{
+
+            margin:0;
+
+            font-size:30px;
+
+        }
+
+
+
+        .container{
+
+            width:600px;
+
+            max-width:90%;
+
+            margin:45px auto;
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:15px;
+
+            box-shadow:0 8px 20px rgba(0,0,0,0.10);
+
+        }
+
+
+
+        h2{
+
+            text-align:center;
+
+            color:#0B4F6C;
+
+            margin-bottom:30px;
+
+        }
+
+
+
+        label{
+
+            display:block;
+
+            margin-top:18px;
+
+            margin-bottom:8px;
+
+            font-weight:600;
+
+            color:#34495e;
+
+        }
+
+
+
+        textarea,
+        input{
+
+            width:100%;
+
+            padding:12px;
+
+            border-radius:8px;
+
+            border:1px solid #ccd6dd;
+
+            font-size:14px;
+
+        }
+
+
+
+        textarea{
+
+            resize:none;
+
+        }
+
+
+
+        button{
+
+
+            width:100%;
+
+            margin-top:30px;
+
+            padding:13px;
+
+            background:#0B4F6C;
+
+            color:white;
+
+            border:none;
+
+            border-radius:8px;
+
+            font-size:16px;
+
+            cursor:pointer;
+
+
+        }
+
+
+
+        button:hover{
+
+            background:#083B50;
+
+        }
+
+
+
+        .volver{
+
+            display:block;
+
+            text-align:center;
+
+            margin-top:20px;
+
+            color:#0B4F6C;
+
+            text-decoration:none;
+
+            font-weight:600;
+
+        }
+
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>
+        Sistema de Historia Clínica
+    </h1>
+
+</div>
+
+
+
+<div class="container">
+
+
+    <h2>
+        Registro de Antecedentes Personales
+    </h2>
+
+
+
+    <form th:action="@{/antecedentes/guardar}"
+          method="post">
+
+
+        <!-- Historia clínica enviada automáticamente -->
+
+        <input type="hidden"
+               name="historiaClinicaId"
+               th:value="${historiaClinicaId}">
+
+
+
+        <!-- Tipo de antecedente -->
+
+        <input type="hidden"
+               name="tipo"
+               value="PERSONAL">
+
+
+
+
+
+        <label>
+            Descripción del antecedente
+        </label>
+
+
+        <textarea
+
+                name="descripcion"
+
+                rows="5"
+
+                placeholder="Ejemplo: Cirugía de apendicitis">
+
+</textarea>
+
+
+
+
+        <label>
+            Fecha de registro
+        </label>
+
+
+        <input
+
+                type="date"
+
+                name="fechaRegistro">
+
+
+
+
+
+        <button type="submit">
+
+            Guardar antecedente
+
+        </button>
+
+
+    </form>
+
+
+
+    <a class="volver"
+       th:href="@{/}">
+
+        Volver al menú principal
+
+    </a>
+
+
+
+</div>
+
+
+
+</body>
+
+
+</html>

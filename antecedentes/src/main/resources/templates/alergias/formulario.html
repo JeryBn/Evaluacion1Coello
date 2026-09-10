@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Registro de Alergias
+    </title>
+
+
+    <style>
+
+
+        body{
+
+            margin:0;
+
+            font-family:'Segoe UI',Arial;
+
+            background:#f5f8fb;
+
+        }
+
+
+
+        .header{
+
+            background:#0B4F6C;
+
+            color:white;
+
+            padding:30px;
+
+            text-align:center;
+
+        }
+
+
+
+        .container{
+
+            width:600px;
+
+            max-width:90%;
+
+            margin:45px auto;
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:15px;
+
+            box-shadow:0 8px 20px rgba(0,0,0,.1);
+
+        }
+
+
+
+        h2{
+
+            text-align:center;
+
+            color:#0B4F6C;
+
+        }
+
+
+
+        label{
+
+            display:block;
+
+            margin-top:15px;
+
+            font-weight:600;
+
+            color:#34495e;
+
+        }
+
+
+
+        input, textarea{
+
+
+            width:100%;
+
+            padding:12px;
+
+            margin-top:8px;
+
+            border-radius:8px;
+
+            border:1px solid #ccd6dd;
+
+
+        }
+
+
+
+        button{
+
+            width:100%;
+
+            margin-top:25px;
+
+            padding:13px;
+
+            background:#0B4F6C;
+
+            color:white;
+
+            border:none;
+
+            border-radius:8px;
+
+            font-size:16px;
+
+
+        }
+
+
+
+        .volver{
+
+            display:block;
+
+            text-align:center;
+
+            margin-top:20px;
+
+            color:#0B4F6C;
+
+        }
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>
+        Sistema de Historia Clínica
+    </h1>
+
+</div>
+
+
+
+
+<div class="container">
+
+
+    <h2>
+        Registro de Alergias
+    </h2>
+
+
+
+    <form th:action="@{/alergias/guardar}"
+          method="post">
+
+
+
+        <input type="hidden"
+               name="historiaClinicaId"
+               th:value="${historiaClinicaId}">
+
+
+
+        <label>
+            Alergia
+        </label>
+
+        <input
+                type="text"
+                name="alergia"
+                placeholder="Ejemplo: Penicilina">
+
+
+
+
+
+        <label>
+            Tipo
+        </label>
+
+        <input
+                type="text"
+                name="tipo"
+                placeholder="Ejemplo: Medicamento">
+
+
+
+
+
+        <label>
+            Reacción
+        </label>
+
+
+        <textarea
+                name="reaccion"
+                rows="3"
+                placeholder="Ejemplo: Erupción cutánea">
+</textarea>
+
+
+
+
+
+        <label>
+            Observación
+        </label>
+
+
+        <textarea
+                name="observacion"
+                rows="3">
+</textarea>
+
+
+
+
+
+        <label>
+            Fecha de registro
+        </label>
+
+
+        <input
+                type="date"
+                name="fechaRegistro">
+
+
+
+
+
+        <button type="submit">
+
+            Guardar alergia
+
+        </button>
+
+
+
+    </form>
+
+
+
+    <a class="volver"
+       th:href="@{/}">
+
+        Volver al menú principal
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+
+</html>
