@@ -34,19 +34,6 @@ function requireConsulta() {
     return true;
 }
 
-document.getElementById("historyForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    try {
-        const historia = await request("/historias-clinicas", "POST", {
-            numeroHistoria: value("numeroHistoria"), pacienteId: number("pacienteId")
-        });
-        historiaId = historia.id;
-        document.getElementById("historyId").textContent = historiaId;
-        document.getElementById("consultaHistoriaId").value = historiaId;
-        message(`Historia clinica ${historia.numeroHistoria} creada. Ahora registra la consulta.`);
-    } catch (error) { message(error.message, true); }
-});
-
 document.getElementById("consultForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     try {

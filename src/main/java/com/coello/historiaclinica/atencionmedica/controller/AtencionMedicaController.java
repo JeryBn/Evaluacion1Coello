@@ -3,13 +3,11 @@ package com.coello.historiaclinica.atencionmedica.controller;
 import com.coello.historiaclinica.atencionmedica.dto.ConsultaMedicaRequest;
 import com.coello.historiaclinica.atencionmedica.dto.DiagnosticoRequest;
 import com.coello.historiaclinica.atencionmedica.dto.EvolucionMedicaRequest;
-import com.coello.historiaclinica.atencionmedica.dto.HistoriaClinicaRequest;
 import com.coello.historiaclinica.atencionmedica.dto.SignosVitalesRequest;
 import com.coello.historiaclinica.atencionmedica.dto.TratamientoRequest;
 import com.coello.historiaclinica.atencionmedica.entity.ConsultaMedica;
 import com.coello.historiaclinica.atencionmedica.entity.Diagnostico;
 import com.coello.historiaclinica.atencionmedica.entity.EvolucionMedica;
-import com.coello.historiaclinica.atencionmedica.entity.HistoriaClinica;
 import com.coello.historiaclinica.atencionmedica.entity.SignosVitales;
 import com.coello.historiaclinica.atencionmedica.entity.Tratamiento;
 import com.coello.historiaclinica.atencionmedica.service.AtencionMedicaService;
@@ -36,12 +34,6 @@ public class AtencionMedicaController {
 
     public AtencionMedicaController(AtencionMedicaService atencionMedicaService) {
         this.atencionMedicaService = atencionMedicaService;
-    }
-
-    @PostMapping("/historias-clinicas")
-    @ResponseStatus(HttpStatus.CREATED)
-    public HistoriaClinica crearHistoriaClinicaBase(@Valid @RequestBody HistoriaClinicaRequest request) {
-        return atencionMedicaService.crearHistoriaClinicaBase(request);
     }
 
     @PostMapping("/consultas")

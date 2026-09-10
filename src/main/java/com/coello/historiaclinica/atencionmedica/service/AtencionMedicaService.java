@@ -3,22 +3,21 @@ package com.coello.historiaclinica.atencionmedica.service;
 import com.coello.historiaclinica.atencionmedica.dto.ConsultaMedicaRequest;
 import com.coello.historiaclinica.atencionmedica.dto.DiagnosticoRequest;
 import com.coello.historiaclinica.atencionmedica.dto.EvolucionMedicaRequest;
-import com.coello.historiaclinica.atencionmedica.dto.HistoriaClinicaRequest;
 import com.coello.historiaclinica.atencionmedica.dto.SignosVitalesRequest;
 import com.coello.historiaclinica.atencionmedica.dto.TratamientoRequest;
 import com.coello.historiaclinica.atencionmedica.entity.ConsultaMedica;
 import com.coello.historiaclinica.atencionmedica.entity.Diagnostico;
 import com.coello.historiaclinica.atencionmedica.entity.EstadoConsulta;
 import com.coello.historiaclinica.atencionmedica.entity.EvolucionMedica;
-import com.coello.historiaclinica.atencionmedica.entity.HistoriaClinica;
 import com.coello.historiaclinica.atencionmedica.entity.SignosVitales;
 import com.coello.historiaclinica.atencionmedica.entity.Tratamiento;
 import com.coello.historiaclinica.atencionmedica.repository.ConsultaMedicaRepository;
 import com.coello.historiaclinica.atencionmedica.repository.DiagnosticoRepository;
 import com.coello.historiaclinica.atencionmedica.repository.EvolucionMedicaRepository;
-import com.coello.historiaclinica.atencionmedica.repository.HistoriaClinicaRepository;
 import com.coello.historiaclinica.atencionmedica.repository.SignosVitalesRepository;
 import com.coello.historiaclinica.atencionmedica.repository.TratamientoRepository;
+import com.tecsup.historiaclinica.model.HistoriaClinica;
+import com.tecsup.historiaclinica.repository.HistoriaClinicaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,15 +50,6 @@ public class AtencionMedicaService {
         this.diagnosticoRepository = diagnosticoRepository;
         this.tratamientoRepository = tratamientoRepository;
         this.evolucionMedicaRepository = evolucionMedicaRepository;
-    }
-
-    public HistoriaClinica crearHistoriaClinicaBase(HistoriaClinicaRequest request) {
-        HistoriaClinica historia = new HistoriaClinica();
-        historia.setNumeroHistoria(request.numeroHistoria());
-        historia.setPacienteId(request.pacienteId());
-        historia.setFechaApertura(LocalDate.now());
-        historia.setEstado("ACTIVA");
-        return historiaClinicaRepository.save(historia);
     }
 
     public ConsultaMedica registrarConsulta(ConsultaMedicaRequest request) {

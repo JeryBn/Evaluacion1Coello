@@ -1,6 +1,7 @@
 package com.coello.historiaclinica.atencionmedica.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tecsup.historiaclinica.model.HistoriaClinica;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

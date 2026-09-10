@@ -18,20 +18,18 @@
         <p>Registro de consultas, signos vitales, diagnosticos, tratamientos y evoluciones.</p>
     </section>
 
-    <p id="notice" class="notice" role="status">Completa la historia clinica y registra una consulta para continuar.</p>
+    <p id="notice" class="notice" role="status">Ingresa el identificador de una historia clinica creada en el modulo de Historias Clinicas.</p>
 
     <section class="workspace">
-        <form id="historyForm" class="panel compact-form">
-            <div class="panel-heading"><span class="step">01</span><div><h2>Historia clinica</h2><p>Registro temporal para probar este modulo.</p></div></div>
-            <label>Numero de historia<input id="numeroHistoria" required value="HC-WEB-001"></label>
-            <label>Id del paciente<input id="pacienteId" type="number" min="1" required value="1"></label>
-            <button type="submit">Crear historia</button>
-            <p class="id-display">Historia activa: <b id="historyId">Sin crear</b></p>
-        </form>
+        <aside class="panel compact-form">
+            <div class="panel-heading"><span class="step">01</span><div><h2>Historia clinica</h2><p>Este dato se crea en el modulo compartido del equipo.</p></div></div>
+            <p>Primero registra el paciente y crea su historia clinica. Luego vuelve aqui con su identificador.</p>
+            <a class="button-link" th:href="@{/historias-clinicas}">Ir a Historias Clinicas</a>
+        </aside>
 
         <form id="consultForm" class="panel consultation-form">
             <div class="panel-heading"><span class="step">02</span><div><h2>Consulta medica</h2><p>RF-HC-08, 09, 10 y 11.</p></div></div>
-            <label>Id historia clinica<input id="consultaHistoriaId" type="number" min="1" required></label>
+            <label>Id historia clinica<input id="consultaHistoriaId" type="number" min="1" required placeholder="Ejemplo: 1"></label>
             <label>Codigo de cita<input id="codigoCita" value="CITA-WEB-001"></label>
             <label>Id medico<input id="medicoId" type="number" min="1" required value="10"></label>
             <label>Nombre del medico<input id="nombreMedico" required value="Dra. Laura Gomez"></label>

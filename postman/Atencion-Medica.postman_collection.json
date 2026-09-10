@@ -5,13 +5,21 @@
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:8080/api/atencion-medica" },
+    { "key": "coreUrl", "value": "http://localhost:8080/api" },
+    { "key": "pacienteId", "value": "1" },
     { "key": "historiaId", "value": "1" },
     { "key": "consultaId", "value": "1" }
   ],
   "item": [
     {
-      "name": "RF-HC-08 Crear historia de prueba",
-      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"numeroHistoria\": \"HC-POSTMAN-001\",\n  \"pacienteId\": 1\n}" }, "url": "{{baseUrl}}/historias-clinicas" }
+      "name": "01 Crear paciente",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('pacienteId', pm.response.json().id);"] } }],
+      "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"dni\": \"87654321\",\n  \"nombres\": \"Ana\",\n  \"apellidos\": \"Postman\",\n  \"sexo\": \"F\",\n  \"telefono\": \"999999999\"\n}" }, "url": "{{coreUrl}}/pacientes" }
+    },
+    {
+      "name": "02 Crear historia clinica",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('historiaId', pm.response.json().id);"] } }],
+      "request": { "method": "POST", "url": "{{coreUrl}}/historias-clinicas/paciente/{{pacienteId}}" }
     },
     {
       "name": "RF-HC-08 a 11 Registrar consulta",
