@@ -1,5 +1,14 @@
 # Sistema de Historia Clinica - Modulo 5
 
+## Proyecto 2 (en desarrollo)
+
+La segunda entrega continua este mismo proyecto. Consultar el
+[reparto entre los tres integrantes y contrato de integracion](docs/PROYECTO-2-EQUIPO.md).
+Este avance incorpora auditoria de Atencion Medica; usuarios, roles y seguridad
+quedan asignados a las companeras y pendientes de integracion. No se presenta
+la segunda entrega como terminada ni el sistema como protegido todavia.
+
+
 Aplicacion web y API REST desarrollada para el laboratorio **Implementacion de Persistencia con Spring Boot e Hibernate**. El equipo construyo un unico sistema de Historia Clinica con Spring Boot, Thymeleaf, JPA, Hibernate y MySQL/MariaDB.
 
 El proyecto aplica una arquitectura en capas:
