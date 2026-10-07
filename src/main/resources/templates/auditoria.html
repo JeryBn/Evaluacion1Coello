@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitacora de auditoria</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navegacion :: flujo}"></div>
+<main class="contenedor">
+    <h1>Bitacora de auditoria</h1>
+    <p th:text="|Operaciones registradas: ${registros.totalElements}|"></p>
+    <div style="overflow-x:auto">
+        <table>
+            <thead><tr><th>Usuario</th><th>Fecha y hora (UTC)</th><th>Operacion</th><th>Entidad</th><th>ID del registro</th></tr></thead>
+            <tbody>
+            <tr th:each="registro : ${registros.content}">
+                <td th:text="${registro.usuario}"></td>
+                <td th:text="${registro.fechaHora}"></td>
+                <td th:text="${registro.operacion}"></td>
+                <td th:text="${registro.entidad}"></td>
+                <td th:text="${registro.registroId}"></td>
+            </tr>
+            <tr th:if="${registros.empty}"><td colspan="5">No hay operaciones registradas.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Paginas de auditoria">
+        <a th:if="${registros.hasPrevious()}" th:href="@{/auditoria(pagina=${registros.number - 1})}">Anterior</a>
+        <span th:text="|Pagina ${registros.number + 1}|"></span>
+        <a th:if="${registros.hasNext()}" th:href="@{/auditoria(pagina=${registros.number + 1})}">Siguiente</a>
+    </nav>
+    <p><a th:href="@{/atencion-medica}">Volver a Atencion Medica</a></p>
+</main>
+</body>
+</html>

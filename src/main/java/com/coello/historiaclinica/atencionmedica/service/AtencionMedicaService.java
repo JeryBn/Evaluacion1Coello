@@ -1,5 +1,8 @@
 package com.coello.historiaclinica.atencionmedica.service;
 
+import com.tecsup.historiaclinica.auditoria.Auditar;
+import com.tecsup.historiaclinica.auditoria.Operacion;
+
 import com.coello.historiaclinica.atencionmedica.dto.ConsultaMedicaRequest;
 import com.coello.historiaclinica.atencionmedica.dto.DiagnosticoRequest;
 import com.coello.historiaclinica.atencionmedica.dto.EvolucionMedicaRequest;
@@ -52,6 +55,7 @@ public class AtencionMedicaService {
         this.evolucionMedicaRepository = evolucionMedicaRepository;
     }
 
+    @Auditar(entidad = ConsultaMedica.class, operacion = Operacion.REGISTRO)
     public ConsultaMedica registrarConsulta(ConsultaMedicaRequest request) {
         HistoriaClinica historia = obtenerHistoriaClinica(request.historiaClinicaId());
         ConsultaMedica consulta = new ConsultaMedica();
@@ -96,6 +100,7 @@ public class AtencionMedicaService {
         return evolucionMedicaRepository.findByConsultaMedicaIdOrderByFechaEvolucionDesc(consultaId);
     }
 
+    @Auditar(entidad = SignosVitales.class, operacion = Operacion.REGISTRO, buscarExistentePor = "consultaMedica.id")
     public SignosVitales registrarSignosVitales(Long consultaId, SignosVitalesRequest request) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         SignosVitales signos = signosVitalesRepository.findByConsultaMedicaId(consultaId).orElse(new SignosVitales());
@@ -111,6 +116,7 @@ public class AtencionMedicaService {
         return signosVitalesRepository.save(signos);
     }
 
+    @Auditar(entidad = SignosVitales.class, operacion = Operacion.MODIFICACION)
     public SignosVitales actualizarSignosVitales(Long signosVitalesId, SignosVitalesRequest request) {
         SignosVitales signos = signosVitalesRepository.findById(signosVitalesId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existen signos vitales con id " + signosVitalesId));
@@ -125,6 +131,7 @@ public class AtencionMedicaService {
         return signosVitalesRepository.save(signos);
     }
 
+    @Auditar(entidad = Diagnostico.class, operacion = Operacion.REGISTRO)
     public Diagnostico registrarDiagnostico(Long consultaId, DiagnosticoRequest request) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         Diagnostico diagnostico = new Diagnostico();
@@ -136,6 +143,7 @@ public class AtencionMedicaService {
         return diagnosticoRepository.save(diagnostico);
     }
 
+    @Auditar(entidad = Tratamiento.class, operacion = Operacion.REGISTRO)
     public Tratamiento registrarTratamiento(Long consultaId, TratamientoRequest request) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         Tratamiento tratamiento = new Tratamiento();
@@ -150,6 +158,7 @@ public class AtencionMedicaService {
         return tratamientoRepository.save(tratamiento);
     }
 
+    @Auditar(entidad = EvolucionMedica.class, operacion = Operacion.REGISTRO)
     public EvolucionMedica registrarEvolucion(Long consultaId, EvolucionMedicaRequest request) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         EvolucionMedica evolucion = new EvolucionMedica();
@@ -161,12 +170,14 @@ public class AtencionMedicaService {
         return evolucionMedicaRepository.save(evolucion);
     }
 
+    @Auditar(entidad = ConsultaMedica.class, operacion = Operacion.MODIFICACION)
     public ConsultaMedica cerrarConsulta(Long consultaId) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         consulta.setEstado(EstadoConsulta.CERRADA);
         return consultaMedicaRepository.save(consulta);
     }
 
+    @Auditar(entidad = ConsultaMedica.class, operacion = Operacion.MODIFICACION)
     public ConsultaMedica actualizarConsulta(Long consultaId, ConsultaMedicaRequest request) {
         ConsultaMedica consulta = obtenerConsulta(consultaId);
         consulta.setCodigoCita(request.codigoCita());
@@ -182,6 +193,7 @@ public class AtencionMedicaService {
         return consultaMedicaRepository.save(consulta);
     }
 
+    @Auditar(entidad = Diagnostico.class, operacion = Operacion.MODIFICACION)
     public Diagnostico actualizarDiagnostico(Long diagnosticoId, DiagnosticoRequest request) {
         Diagnostico diagnostico = diagnosticoRepository.findById(diagnosticoId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe el diagnostico con id " + diagnosticoId));
@@ -192,6 +204,7 @@ public class AtencionMedicaService {
         return diagnosticoRepository.save(diagnostico);
     }
 
+    @Auditar(entidad = Tratamiento.class, operacion = Operacion.MODIFICACION)
     public Tratamiento actualizarTratamiento(Long tratamientoId, TratamientoRequest request) {
         Tratamiento tratamiento = tratamientoRepository.findById(tratamientoId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe el tratamiento con id " + tratamientoId));
@@ -205,6 +218,7 @@ public class AtencionMedicaService {
         return tratamientoRepository.save(tratamiento);
     }
 
+    @Auditar(entidad = EvolucionMedica.class, operacion = Operacion.MODIFICACION)
     public EvolucionMedica actualizarEvolucion(Long evolucionId, EvolucionMedicaRequest request) {
         EvolucionMedica evolucion = evolucionMedicaRepository.findById(evolucionId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe la evolucion medica con id " + evolucionId));
@@ -214,6 +228,7 @@ public class AtencionMedicaService {
         return evolucionMedicaRepository.save(evolucion);
     }
 
+    @Auditar(entidad = ConsultaMedica.class, operacion = Operacion.ELIMINACION, idArgumento = 0)
     public void eliminarConsulta(Long consultaId) {
         if (!consultaMedicaRepository.existsById(consultaId)) {
             throw new RecursoNoEncontradoException("No existe la consulta medica con id " + consultaId);
@@ -221,6 +236,7 @@ public class AtencionMedicaService {
         consultaMedicaRepository.deleteById(consultaId);
     }
 
+    @Auditar(entidad = SignosVitales.class, operacion = Operacion.ELIMINACION, idArgumento = 0)
     public void eliminarSignosVitales(Long signosVitalesId) {
         if (!signosVitalesRepository.existsById(signosVitalesId)) {
             throw new RecursoNoEncontradoException("No existen signos vitales con id " + signosVitalesId);
@@ -228,6 +244,7 @@ public class AtencionMedicaService {
         signosVitalesRepository.deleteById(signosVitalesId);
     }
 
+    @Auditar(entidad = Diagnostico.class, operacion = Operacion.ELIMINACION, idArgumento = 0)
     public void eliminarDiagnostico(Long diagnosticoId) {
         if (!diagnosticoRepository.existsById(diagnosticoId)) {
             throw new RecursoNoEncontradoException("No existe el diagnostico con id " + diagnosticoId);
@@ -235,6 +252,7 @@ public class AtencionMedicaService {
         diagnosticoRepository.deleteById(diagnosticoId);
     }
 
+    @Auditar(entidad = Tratamiento.class, operacion = Operacion.ELIMINACION, idArgumento = 0)
     public void eliminarTratamiento(Long tratamientoId) {
         if (!tratamientoRepository.existsById(tratamientoId)) {
             throw new RecursoNoEncontradoException("No existe el tratamiento con id " + tratamientoId);
@@ -242,6 +260,7 @@ public class AtencionMedicaService {
         tratamientoRepository.deleteById(tratamientoId);
     }
 
+    @Auditar(entidad = EvolucionMedica.class, operacion = Operacion.ELIMINACION, idArgumento = 0)
     public void eliminarEvolucion(Long evolucionId) {
         if (!evolucionMedicaRepository.existsById(evolucionId)) {
             throw new RecursoNoEncontradoException("No existe la evolucion medica con id " + evolucionId);
