@@ -33,8 +33,28 @@
             <button type="submit">Guardar alergia</button>
         </form>
     </section>
-    <section class="dato"><h2>Antecedentes registrados</h2><p th:if="${#lists.isEmpty(antecedentes)}">No hay antecedentes registrados.</p><ul><li th:each="item : ${antecedentes}" th:text="${item.tipo + ': ' + item.descripcion}"></li></ul></section>
-    <section class="dato"><h2>Alergias registradas</h2><p th:if="${#lists.isEmpty(alergias)}">No hay alergias registradas.</p><ul><li th:each="item : ${alergias}" th:text="${item.alergia + ' - ' + item.reaccion}"></li></ul></section>
+    <section><h2>Antecedentes registrados</h2>
+    <div th:each="item : ${antecedentes}">
+        <p th:text="${item.descripcion}"></p>
+        <details><summary>Editar</summary><form th:action="@{/historias-clinicas/{h}/antecedentes/{id}/editar(h=${historiaId},id=${item.id})}" method="post">
+            <label>tipo<input name="tipo" th:value="${item.tipo}" type="text" required maxlength="255"></label>
+            <label>descripcion<input name="descripcion" th:value="${item.descripcion}" type="text" required maxlength="255"></label>
+            <label>fechaRegistro<input name="fechaRegistro" th:value="${item.fechaRegistro}" type="date" required maxlength="255"></label>
+            <button>Guardar</button></form></details>
+        <form th:action="@{/historias-clinicas/{h}/antecedentes/{id}/eliminar(h=${historiaId},id=${item.id})}" method="post" onsubmit="return confirm('Eliminar este registro?')"><button>Eliminar</button></form>
+    </div></section>
+    <section><h2>Alergias registrados</h2>
+    <div th:each="item : ${alergias}">
+        <p th:text="${item.alergia}"></p>
+        <details><summary>Editar</summary><form th:action="@{/historias-clinicas/{h}/alergias/{id}/editar(h=${historiaId},id=${item.id})}" method="post">
+            <label>alergia<input name="alergia" th:value="${item.alergia}" type="text" required maxlength="255"></label>
+            <label>tipo<input name="tipo" th:value="${item.tipo}" type="text" required maxlength="255"></label>
+            <label>reaccion<input name="reaccion" th:value="${item.reaccion}" type="text" required maxlength="255"></label>
+            <label>observacion<input name="observacion" th:value="${item.observacion}" type="text"  maxlength="255"></label>
+            <label>fechaRegistro<input name="fechaRegistro" th:value="${item.fechaRegistro}" type="date" required maxlength="255"></label>
+            <button>Guardar</button></form></details>
+        <form th:action="@{/historias-clinicas/{h}/alergias/{id}/eliminar(h=${historiaId},id=${item.id})}" method="post" onsubmit="return confirm('Eliminar este registro?')"><button>Eliminar</button></form>
+    </div></section>
     <a class="enlace-volver" th:href="@{/historias-clinicas}">Volver al listado</a>
     <a class="enlace-siguiente" th:href="@{/atencion-medica}">Continuar a atención médica</a>
 </main>

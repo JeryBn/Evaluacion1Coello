@@ -12,6 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AntecedentesViewController {
+    @PostMapping("/historias-clinicas/{historiaId}/antecedentes/{id}/editar")
+    public String editarAntecedente(@PathVariable Long historiaId,@PathVariable Long id,@org.springframework.web.bind.annotation.ModelAttribute Antecedente datos) {
+        service.editarAntecedente(historiaId,id,datos);return "redirect:/historias-clinicas/"+historiaId+"/antecedentes";
+    }
+    @PostMapping("/historias-clinicas/{historiaId}/alergias/{id}/editar")
+    public String editarAlergia(@PathVariable Long historiaId,@PathVariable Long id,@org.springframework.web.bind.annotation.ModelAttribute Alergia datos) {
+        service.editarAlergia(historiaId,id,datos);return "redirect:/historias-clinicas/"+historiaId+"/antecedentes";
+    }
+    @PostMapping("/historias-clinicas/{historiaId}/antecedentes/{id}/eliminar")
+    public String eliminarAntecedente(@PathVariable Long historiaId,@PathVariable Long id) {
+        service.eliminarAntecedente(historiaId,id);return "redirect:/historias-clinicas/"+historiaId+"/antecedentes";
+    }
+    @PostMapping("/historias-clinicas/{historiaId}/alergias/{id}/eliminar")
+    public String eliminarAlergia(@PathVariable Long historiaId,@PathVariable Long id) {
+        service.eliminarAlergia(historiaId,id);return "redirect:/historias-clinicas/"+historiaId+"/antecedentes";
+    }
     private final AntecedentesService service;
     public AntecedentesViewController(AntecedentesService service) { this.service = service; }
 

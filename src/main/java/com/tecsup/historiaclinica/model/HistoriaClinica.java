@@ -26,7 +26,7 @@ public class HistoriaClinica {
 
     @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Atencion> atenciones;
+    private List<Atencion> atenciones = new java.util.ArrayList<>();
 
     // Constructor vacío (obligatorio para JPA)
     public HistoriaClinica() {

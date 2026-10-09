@@ -142,3 +142,15 @@ input {
     margin-bottom: 18px;
     background-color: var(--blanco);
 }
+
+.navegacion-flujo form { margin:0; }
+form { margin-bottom: 20px; }
+td form { display:inline-block; margin:0 0 0 8px; }
+textarea { width:100%; min-height:80px; max-width:100%; }
+select { min-width:0; max-width:100%; }
+@media (max-width:600px) {
+    .contenedor { margin:16px 0; padding:20px 16px; }
+    .navegacion-flujo { padding:12px; gap:6px; }
+    h1 { padding:20px 16px; }
+    th, td { padding:8px; overflow-wrap:anywhere; }
+}

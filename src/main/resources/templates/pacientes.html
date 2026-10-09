@@ -1,0 +1,3 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pacientes</title><link rel="stylesheet" th:href="@{/css/estilos.css}"></head><body><div th:replace="~{fragments/navegacion :: flujo}"></div><h1>Pacientes</h1><main class="contenedor">
+<a th:href="@{/historias-clinicas/pacientes/nuevo}">Registrar paciente</a><div style="overflow-x:auto"><table><thead><tr><th>DNI</th><th>Nombres</th><th>Apellidos</th><th>Telefono</th></tr></thead><tbody><tr th:each="p : ${pacientes}"><td th:text="${p.dni}"></td><td th:text="${p.nombres}"></td><td th:text="${p.apellidos}"></td><td th:text="${p.telefono}"></td></tr></tbody></table></div></main></body></html>

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@org.springframework.transaction.annotation.Transactional
 public class HistoriaClinicaService {
 
     @Autowired
@@ -26,6 +27,7 @@ public class HistoriaClinicaService {
     private AtencionRepository atencionRepository;
 
 
+    @com.tecsup.historiaclinica.auditoria.Auditar(entidad=HistoriaClinica.class, operacion=com.tecsup.historiaclinica.auditoria.Operacion.REGISTRO)
     public HistoriaClinica crearHistoriaClinica(Long pacienteId) {
         if (historiaClinicaRepository.findByPacienteId(pacienteId).isPresent()) {
             throw new IllegalStateException("Este paciente ya tiene una historia clínica registrada.");
@@ -61,7 +63,9 @@ public class HistoriaClinicaService {
     }
 
 
+    @com.tecsup.historiaclinica.auditoria.Auditar(entidad=Atencion.class, operacion=com.tecsup.historiaclinica.auditoria.Operacion.REGISTRO)
     public Atencion registrarAtencion(Long historiaClinicaId, String motivo, String observaciones) {
+        validarMotivo(motivo);
         HistoriaClinica historia = historiaClinicaRepository.findById(historiaClinicaId)
                 .orElseThrow(() -> new RuntimeException("Historia clínica no encontrada con id: " + historiaClinicaId));
 
@@ -77,5 +81,27 @@ public class HistoriaClinicaService {
 
     public List<Atencion> listarAtencionesPorHistoria(Long historiaClinicaId) {
         return atencionRepository.findByHistoriaClinicaIdOrderByFechaDesc(historiaClinicaId);
+    }
+
+    private void validarMotivo(String motivo) {
+        if(motivo==null || motivo.isBlank() || motivo.length()>255)
+            throw new IllegalArgumentException("Motivo requerido (maximo 255 caracteres)");
+    }
+    private Atencion atencion(Long historiaId,Long id) {
+        Atencion a=atencionRepository.findById(id).orElseThrow(()->new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND));
+        if(!a.getHistoriaClinica().getId().equals(historiaId))
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND);
+        return a;
+    }
+    @com.tecsup.historiaclinica.auditoria.Auditar(entidad=Atencion.class, operacion=com.tecsup.historiaclinica.auditoria.Operacion.MODIFICACION)
+    public Atencion editarAtencion(Long historiaId,Long id,String motivo,String observaciones) {
+        validarMotivo(motivo);Atencion a=atencion(historiaId,id);a.setMotivo(motivo);a.setObservaciones(observaciones);
+        return atencionRepository.save(a);
+    }
+    @com.tecsup.historiaclinica.auditoria.Auditar(entidad=Atencion.class, operacion=com.tecsup.historiaclinica.auditoria.Operacion.ELIMINACION,idArgumento=1)
+    public void eliminarAtencion(Long historiaId,Long id) {
+        Atencion a=atencion(historiaId,id);
+        a.getHistoriaClinica().getAtenciones().remove(a);
+        atencionRepository.delete(a);
     }
 }

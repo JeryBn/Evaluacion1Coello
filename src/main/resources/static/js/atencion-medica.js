@@ -14,9 +14,10 @@ function message(text, error = false) {
 }
 
 async function request(path, method, body) {
+    const csrf = await fetch("/api/csrf").then(r => r.json());
     const response = await fetch(`${baseUrl}${path}`, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", [csrf.headerName]: csrf.token },
         body: body ? JSON.stringify(body) : undefined
     });
     if (!response.ok) {

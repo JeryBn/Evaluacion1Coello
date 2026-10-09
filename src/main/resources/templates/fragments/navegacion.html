@@ -1,8 +1,13 @@
-<nav class="navegacion-flujo" th:fragment="flujo">
+<nav class="navegacion-flujo" th:fragment="flujo" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <a th:href="@{/}">Inicio</a>
-    <a th:href="@{/auditoria}">Auditoria</a>
-    <a th:href="@{/historias-clinicas}">Historias clínicas</a>
-    <a th:href="@{/atencion-medica}">Atención médica</a>
+    <a sec:authorize="hasAnyRole('ADMINISTRADOR','MEDICO','RECEPCIONISTA')" th:href="@{/pacientes}">Pacientes</a>
+    <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/auditoria}">Auditoria</a>
+    <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/admin/usuarios}">Usuarios</a>
+    <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/admin/roles}">Roles</a>
+    <a sec:authorize="hasAnyRole('ADMINISTRADOR','MEDICO')" th:href="@{/historias-clinicas}">Historias clínicas</a>
+    <a sec:authorize="hasAnyRole('ADMINISTRADOR','MEDICO')" th:href="@{/atencion-medica}">Atención médica</a>
     <button type="button" class="nav-atras" onclick="history.back()">← Atrás</button>
     <button type="button" onclick="history.forward()">Adelante →</button>
+    <span sec:authentication="name"></span>
+    <form th:action="@{/logout}" method="post"><button type="submit">Cerrar sesion</button></form>
 </nav>

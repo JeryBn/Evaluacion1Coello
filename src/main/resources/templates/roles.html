@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Roles</title><link rel="stylesheet" th:href="@{/css/estilos.css}"></head><body><div th:replace="~{fragments/navegacion :: flujo}"></div><h1>Roles</h1><main class="contenedor">
+
+<p th:if="${error}" th:text="${error}" role="alert"></p><p th:if="${mensaje}" th:text="${mensaje}"></p>
+<h2 th:text="${edicion == null ? 'Registrar rol' : 'Editar rol'}"></h2>
+<form th:action="@{/admin/roles}" method="post"><input type="hidden" name="id" th:value="${edicion?.id}">
+<label for="codigo">Codigo</label><input id="codigo" name="codigo" th:value="${edicion?.codigo}" pattern="[A-Z][A-Z0-9_]{2,39}" required maxlength="40" th:readonly="${edicion != null}">
+<label for="nombre">Nombre</label><input id="nombre" name="nombre" th:value="${edicion?.nombre}" required maxlength="80"><button type="submit">Guardar rol</button><a th:href="@{/admin/roles}" th:if="${edicion != null}">Cancelar</a></form>
+<h2>Roles registrados</h2><div style="overflow-x:auto"><table><thead><tr><th>Codigo</th><th>Nombre</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>
+<tr th:each="r : ${roles}"><td th:text="${r.codigo}"></td><td th:text="${r.nombre}"></td><td th:text="${r.activo ? 'Activo' : 'Inactivo'}"></td><td><a th:href="@{/admin/roles(editar=${r.id})}">Editar</a><form th:action="@{/admin/roles/{id}/estado(id=${r.id})}" method="post"><input type="hidden" name="activo" th:value="${!r.activo}"><button th:text="${r.activo ? 'Desactivar' : 'Activar'}"></button></form></td></tr></tbody></table></div></main></body></html>

@@ -35,6 +35,7 @@
             <th>Fecha</th>
             <th>Motivo</th>
             <th>Observaciones</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +43,12 @@
             <td th:text="${atencion.fecha}"></td>
             <td th:text="${atencion.motivo}"></td>
             <td th:text="${atencion.observaciones}"></td>
+            <td><details><summary>Editar</summary><form th:action="@{/historias-clinicas/{h}/atenciones/{id}/editar(h=${historiaClinicaId},id=${atencion.id})}" method="post">
+                <label>Motivo <input name="motivo" th:value="${atencion.motivo}" required maxlength="255"></label>
+                <label>Observaciones <input name="observaciones" th:value="${atencion.observaciones}" maxlength="255"></label>
+                <button>Guardar</button></form></details>
+                <form th:action="@{/historias-clinicas/{h}/atenciones/{id}/eliminar(h=${historiaClinicaId},id=${atencion.id})}" method="post" onsubmit="return confirm('Eliminar esta atencion?')"><button>Eliminar</button></form>
+            </td>
         </tr>
         </tbody>
     </table>

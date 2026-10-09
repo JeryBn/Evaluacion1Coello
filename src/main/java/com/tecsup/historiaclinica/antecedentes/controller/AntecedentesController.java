@@ -23,10 +23,14 @@ public class AntecedentesController {
     @PostMapping("/antecedentes") @ResponseStatus(HttpStatus.CREATED)
     public Antecedente crearAntecedente(@PathVariable Long historiaId, @RequestBody Antecedente antecedente) { return service.registrarAntecedente(historiaId, antecedente); }
     @DeleteMapping("/antecedentes/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void eliminarAntecedente(@PathVariable Long id) { service.eliminarAntecedente(id); }
+    public void eliminarAntecedente(@PathVariable Long historiaId,@PathVariable Long id) { service.eliminarAntecedente(historiaId,id); }
     @GetMapping("/alergias") public List<Alergia> listarAlergias(@PathVariable Long historiaId) { return service.listarAlergias(historiaId); }
     @PostMapping("/alergias") @ResponseStatus(HttpStatus.CREATED)
     public Alergia crearAlergia(@PathVariable Long historiaId, @RequestBody Alergia alergia) { return service.registrarAlergia(historiaId, alergia); }
     @DeleteMapping("/alergias/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void eliminarAlergia(@PathVariable Long id) { service.eliminarAlergia(id); }
+    public void eliminarAlergia(@PathVariable Long historiaId,@PathVariable Long id) { service.eliminarAlergia(historiaId,id); }
+    @org.springframework.web.bind.annotation.PutMapping("/antecedentes/{id}")
+    public Antecedente editarAntecedente(@PathVariable Long historiaId,@PathVariable Long id,@RequestBody Antecedente d){return service.editarAntecedente(historiaId,id,d);}
+    @org.springframework.web.bind.annotation.PutMapping("/alergias/{id}")
+    public Alergia editarAlergia(@PathVariable Long historiaId,@PathVariable Long id,@RequestBody Alergia d){return service.editarAlergia(historiaId,id,d);}
 }

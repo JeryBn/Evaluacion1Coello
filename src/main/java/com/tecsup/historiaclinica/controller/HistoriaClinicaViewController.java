@@ -13,6 +13,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/historias-clinicas")
 public class HistoriaClinicaViewController {
+    @PostMapping("/{historiaId}/atenciones/{id}/editar")
+    public String editarAtencion(@PathVariable Long historiaId,@PathVariable Long id,@RequestParam String motivo,@RequestParam(required=false) String observaciones) {
+        historiaClinicaService.editarAtencion(historiaId,id,motivo,observaciones);
+        return "redirect:/historias-clinicas/"+historiaId+"/atenciones";
+    }
+    @PostMapping("/{historiaId}/atenciones/{id}/eliminar")
+    public String eliminarAtencion(@PathVariable Long historiaId,@PathVariable Long id) {
+        historiaClinicaService.eliminarAtencion(historiaId,id);
+        return "redirect:/historias-clinicas/"+historiaId+"/atenciones";
+    }
 
     @Autowired
     private HistoriaClinicaService historiaClinicaService;
@@ -43,7 +53,7 @@ public class HistoriaClinicaViewController {
     @PostMapping("/pacientes/nuevo")
     public String crearPaciente(@ModelAttribute Paciente paciente) {
         pacienteService.crear(paciente);
-        return "redirect:/historias-clinicas/nueva";
+        return "redirect:/pacientes";
     }
 
 

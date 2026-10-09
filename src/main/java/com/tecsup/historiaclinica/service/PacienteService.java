@@ -14,7 +14,9 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @com.tecsup.historiaclinica.auditoria.Auditar(entidad=Paciente.class, operacion=com.tecsup.historiaclinica.auditoria.Operacion.REGISTRO)
     public Paciente crear(Paciente paciente) {
+        paciente.setId(null);
         return pacienteRepository.save(paciente);
     }
 

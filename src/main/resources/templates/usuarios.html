@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Usuarios</title><link rel="stylesheet" th:href="@{/css/estilos.css}"></head><body><div th:replace="~{fragments/navegacion :: flujo}"></div><h1>Usuarios</h1><main class="contenedor">
+
+<p th:if="${error}" th:text="${error}" role="alert"></p><p th:if="${mensaje}" th:text="${mensaje}"></p>
+<h2 th:text="${edicion == null ? 'Registrar usuario' : 'Editar usuario'}"></h2>
+<form th:action="@{/admin/usuarios}" method="post"><input type="hidden" name="id" th:value="${edicion?.id}">
+<label for="username">Usuario</label><input id="username" name="username" th:value="${edicion?.username}" pattern="[a-zA-Z0-9._-]{3,50}" required maxlength="50">
+<label for="password" th:text="${edicion == null ? 'Contrasena' : 'Nueva contrasena (opcional)'}"></label><input id="password" type="password" name="password" minlength="10" maxlength="72" th:required="${edicion == null}" autocomplete="new-password">
+<label for="rolId">Rol</label><select id="rolId" name="rolId" required><option th:each="rol : ${roles}" th:if="${rol.activo}" th:value="${rol.id}" th:text="${rol.nombre}" th:selected="${edicion != null and edicion.rol.id == rol.id}"></option></select>
+<button type="submit">Guardar usuario</button><a th:href="@{/admin/usuarios}" th:if="${edicion != null}">Cancelar</a></form>
+<h2>Usuarios registrados</h2><div style="overflow-x:auto"><table><thead><tr><th>Usuario</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>
+<tr th:each="u : ${usuarios}"><td th:text="${u.username}"></td><td th:text="${u.rol.nombre}"></td><td th:text="${u.activo ? 'Activo' : 'Inactivo'}"></td><td><a th:href="@{/admin/usuarios(editar=${u.id})}">Editar</a>
+<form th:action="@{/admin/usuarios/{id}/estado(id=${u.id})}" method="post"><input type="hidden" name="activo" th:value="${!u.activo}"><button th:text="${u.activo ? 'Desactivar' : 'Activar'}"></button></form></td></tr></tbody></table></div></main></body></html>
