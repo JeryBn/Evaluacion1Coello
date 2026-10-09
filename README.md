@@ -7,8 +7,8 @@ La segunda entrega continua este mismo proyecto. Consultar el
 La segunda entrega incorpora relaciones bidireccionales, CRUD relacionado,
 auditoria automatica, usuarios, roles, login y permisos de backend y frontend.
 El aporte de Magaly se conserva en su commit original `2355ca3`; la integracion
-y las correcciones se describen en el documento del equipo. Las exposiciones
-se encuentran en [docs/exposiciones](docs/exposiciones).
+y las correcciones se describen en el documento del equipo. Los documentos
+de practica para las exposiciones se conservan fuera del repositorio.
 
 Verificacion: 13 pruebas automatizadas exitosas y una ejecucion de la coleccion
 Proyecto 2 con 47 solicitudes HTTP, 30 aserciones y cero fallos. Estos resultados
