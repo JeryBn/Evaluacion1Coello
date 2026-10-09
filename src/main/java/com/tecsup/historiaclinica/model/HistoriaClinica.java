@@ -1,6 +1,8 @@
 package com.tecsup.historiaclinica.model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "historia_clinica")
@@ -21,6 +23,10 @@ public class HistoriaClinica {
     @OneToOne
     @JoinColumn(name = "paciente_id", referencedColumnName = "id", unique = true)
     private Paciente paciente;
+
+    @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Atencion> atenciones;
 
     // Constructor vacío (obligatorio para JPA)
     public HistoriaClinica() {
@@ -73,5 +79,13 @@ public class HistoriaClinica {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public List<Atencion> getAtenciones() {
+        return atenciones;
+    }
+
+    public void setAtenciones(List<Atencion> atenciones) {
+        this.atenciones = atenciones;
     }
 }
