@@ -1,5 +1,6 @@
 package com.tecsup.historiaclinica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -21,6 +22,7 @@ public class Atencion {
 
     @ManyToOne
     @JoinColumn(name = "historia_clinica_id", nullable = false)
+    @JsonBackReference
     private HistoriaClinica historiaClinica;
 
     // Constructor vacío (obligatorio para JPA)
