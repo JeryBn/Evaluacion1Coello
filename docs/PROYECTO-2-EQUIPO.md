@@ -1,5 +1,38 @@
 # Proyecto 2: reparto y contrato de integracion
 
+## Estado final y reparto de exposicion (9 de octubre de 2026)
+
+Este apartado reemplaza el reparto provisional que se conserva mas abajo como
+antecedente de planificacion. Todo esta integrado en la aplicacion raiz.
+
+| Expositor | Parte para defender | Evidencia |
+| --- | --- | --- |
+| Magaly Rosales | P1 HistoriaClinica-Atencion, relacion bidireccional, JSON sin recursion y CRUD relacionado | Commit propio `2355ca3`; PDF de Magaly |
+| Michael | P3 usuarios/roles y P4 interfaz Thymeleaf; conexion con antecedentes/alergias | PDF de Michael; servicios, controladores y vistas de usuarios |
+| Jery / Chory | P2 auditoria y P5 seguridad, integracion y Atencion Medica | PDF de Jery; aspecto de auditoria y configuracion de seguridad |
+
+La implementacion restante se completo con asistencia de Codex en la copia de
+Jery. El reparto de exposicion NO atribuye esos commits a Michael ni a Magaly.
+Cada integrante debe estudiar, reproducir y explicar su parte. La guia pide
+evidencia individual de entidades relacionadas: Michael puede demostrar
+Usuario-Rol y Antecedente-HistoriaClinica; Jery ConsultaMedica-SignosVitales y
+ConsultaMedica-Diagnostico; Magaly HistoriaClinica-Atencion.
+
+Correcciones sobre el aporte de Magaly: inicializar la coleccion de atenciones,
+conservar JsonManagedReference/JsonBackReference, completar edicion/eliminacion
+acotadas a la historia y hacer DB_PORT configurable (3306/3307). Su commit y
+autor se conservan; no se reemplazo su proyecto ni se borraron sus aportes.
+
+Verificado: Maven package con 13 pruebas sin fallos; Newman con 47 solicitudes,
+30 aserciones sin fallos. CSRF, permisos por rol, rechazo de usuario/rol inactivo,
+proteccion del ultimo administrador, auditoria transaccional y CRUD relacionado
+estan cubiertos. Newman ejecuta la coleccion de Postman; no equivale a afirmar
+una ejecucion manual en la interfaz de Postman.
+
+La base exportada es solo estructura, sin registros ni credenciales. Los datos
+ficticios de demostracion permanecen exclusivamente en la base local.
+El respaldo `antecedentes/` y sus cambios locales ajenos se preservan.
+
 Continuacion de Evaluacion 01 en la misma aplicacion y base `historia_clinica`.
 La portada menciona pedidos, pero el procedimiento pide continuar el proyecto
 anterior: se conserva Historia Clinica. La guia tambien dice individual;

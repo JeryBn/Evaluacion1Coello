@@ -1,0 +1,764 @@
+{
+  "info": {
+    "name": "Proyecto 2 - Integracion Historia Clinica",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Solo datos ficticios. Ejecutar en orden. Configurar claves locales en entorno, nunca subirlas. CSRF activo, autenticar Basic y mantener cookies."
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "admin"
+      },
+      {
+        "key": "password",
+        "value": "{{adminPassword}}"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "adminPassword",
+      "value": ""
+    },
+    {
+      "key": "medicoPassword",
+      "value": ""
+    },
+    {
+      "key": "recepcionPassword",
+      "value": ""
+    },
+    {
+      "key": "demoUserPassword",
+      "value": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (![\"GET\",\"HEAD\",\"OPTIONS\"].includes(pm.request.method) && !pm.info.requestName.includes(\"sin CSRF\")) {",
+          "pm.sendRequest({url:pm.variables.get(\"baseUrl\")+\"/api/csrf\",method:\"GET\",header:{Authorization:\"Basic \"+btoa(\"admin:\"+pm.variables.get(\"adminPassword\"))}},(err,res)=>{if(err)throw err;const token=res.json();pm.request.headers.upsert({key:token.headerName,value:token.token});});",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Roles disponibles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/admin/roles"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"medicoRolId\",pm.response.json().find(r=>r.codigo===\"MEDICO\").id);pm.collectionVariables.set(\"runId\",Date.now().toString());"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 Registrar rol",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"DEMO_{{runId}}\",\n  \"nombre\": \"Rol demostracion\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"rolId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 Editar rol",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles/{{rolId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Rol editado\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 Desactivar rol",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles/{{rolId}}/estado",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": false\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 Activar rol",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles/{{rolId}}/estado",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": true\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 Registrar usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/usuarios",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"demo.{{runId}}\",\n  \"password\": \"{{demoUserPassword}}\",\n  \"rolId\": \"{{medicoRolId}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"usuarioId\",pm.response.json().id);pm.test(\"Hash no expuesto\",()=>pm.expect(pm.response.json()).not.to.have.property(\"passwordHash\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 Editar usuario",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/usuarios/{{usuarioId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"demo.{{runId}}\",\n  \"password\": \"\",\n  \"rolId\": \"{{rolId}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 Desactivar usuario",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/usuarios/{{usuarioId}}/estado",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": false\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 Activar usuario",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/usuarios/{{usuarioId}}/estado",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activo\": true\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 Registrar paciente ficticio",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/pacientes",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dni\": \"DEMO-{{runId}}\",\n  \"nombres\": \"Demostracion\",\n  \"apellidos\": \"Proyecto Dos\",\n  \"sexo\": \"F\",\n  \"telefono\": \"000000000\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"pacienteId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 Crear historia",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas/paciente/{{pacienteId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"historiaId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 Crear atencion Magaly",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas/{{historiaId}}/atenciones?motivo=Consulta%20demostracion"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.collectionVariables.set(\"atencionId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13 Relacion bidireccional JSON",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas/{{historiaId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Atencion incluida sin recursion\",()=>{const h=pm.response.json();pm.expect(h.atenciones).to.have.length(1);pm.expect(h.atenciones[0]).not.to.have.property(\"historiaClinica\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "14 Editar atencion",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas/{{historiaId}}/atenciones/{{atencionId}}?motivo=Control%20actualizado"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "15 Crear consulta medica",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/atencion-medica/consultas",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"historiaClinicaId\": \"{{historiaId}}\",\n  \"medicoId\": 1,\n  \"nombreMedico\": \"Medico demostracion\",\n  \"especialidad\": \"General\",\n  \"motivoConsulta\": \"Control de prueba\",\n  \"anamnesis\": \"Datos ficticios de laboratorio\",\n  \"examenFisico\": \"Examen de demostracion\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\",()=>pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"consultaId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "16 Crear signos vitales",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/atencion-medica/consultas/{{consultaId}}/signos-vitales",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pesoKg\": 60,\n  \"tallaMetros\": 1.6,\n  \"presionArterial\": \"120/80\",\n  \"frecuenciaCardiaca\": 70,\n  \"frecuenciaRespiratoria\": 18,\n  \"temperatura\": 36.5,\n  \"saturacionOxigeno\": 98\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\",()=>pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "17 Crear diagnostico",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/atencion-medica/consultas/{{consultaId}}/diagnosticos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigoCie10\": \"Z00\",\n  \"descripcion\": \"Demostracion\",\n  \"tipoDiagnostico\": \"PRINCIPAL\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\",()=>pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"diagnosticoId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "18 Editar diagnostico",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/atencion-medica/diagnosticos/{{diagnosticoId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigoCie10\": \"Z00\",\n  \"descripcion\": \"Demostracion actualizada\",\n  \"tipoDiagnostico\": \"PRINCIPAL\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "19 Eliminar diagnostico de prueba",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/atencion-medica/diagnosticos/{{diagnosticoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 204\",()=>pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "20 Antecedente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/historias-clinicas/{{historiaId}}/antecedentes",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"PERSONAL\",\n  \"descripcion\": \"Dato ficticio\",\n  \"fechaRegistro\": \"2026-10-08\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\",()=>pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"antecedenteId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "21 Editar antecedente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/historias-clinicas/{{historiaId}}/antecedentes/{{antecedenteId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"FAMILIAR\",\n  \"descripcion\": \"Dato ficticio actualizado\",\n  \"fechaRegistro\": \"2026-10-08\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "22 No eliminar atencion de otra historia",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas/99999999/atenciones/{{atencionId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\",()=>pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "23 Medico sin acceso a usuarios",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/admin/usuarios",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "medico"
+            },
+            {
+              "key": "password",
+              "value": "{{medicoPassword}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\",()=>pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "24 Recepcion sin acceso clinico",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/historias-clinicas",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "recepcion"
+            },
+            {
+              "key": "password",
+              "value": "{{recepcionPassword}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\",()=>pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "25 Recepcion consulta pacientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/pacientes",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "recepcion"
+            },
+            {
+              "key": "password",
+              "value": "{{recepcionPassword}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "26 Escritura sin CSRF denegada",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"NO_CREAR\",\n  \"nombre\": \"No crear\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\",()=>pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "27 Auditoria real",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/auditoria"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Auditoria contiene admin y cambios\",()=>{const a=pm.response.json();pm.expect(a.total).to.be.above(0);pm.expect(a.registros.some(r=>r.usuario===\"admin\")).to.eql(true);});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

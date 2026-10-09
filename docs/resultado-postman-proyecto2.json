@@ -1,0 +1,294 @@
+{
+  "stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 27,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 54,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 27,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 27,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 30,
+      "pending": 0,
+      "failed": 0
+    },
+    "testScripts": {
+      "total": 27,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 27,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "failures": [],
+  "requests": [
+    {
+      "name": "01 Roles disponibles",
+      "code": 200,
+      "responseTime": 133
+    },
+    {
+      "name": "02 Registrar rol",
+      "code": 200,
+      "responseTime": 199
+    },
+    {
+      "name": "02 Registrar rol",
+      "code": 200,
+      "responseTime": 199
+    },
+    {
+      "name": "03 Editar rol",
+      "code": 200,
+      "responseTime": 157
+    },
+    {
+      "name": "03 Editar rol",
+      "code": 200,
+      "responseTime": 157
+    },
+    {
+      "name": "04 Desactivar rol",
+      "code": 200,
+      "responseTime": 160
+    },
+    {
+      "name": "04 Desactivar rol",
+      "code": 200,
+      "responseTime": 160
+    },
+    {
+      "name": "05 Activar rol",
+      "code": 200,
+      "responseTime": 121
+    },
+    {
+      "name": "05 Activar rol",
+      "code": 200,
+      "responseTime": 121
+    },
+    {
+      "name": "06 Registrar usuario",
+      "code": 200,
+      "responseTime": 201
+    },
+    {
+      "name": "06 Registrar usuario",
+      "code": 200,
+      "responseTime": 201
+    },
+    {
+      "name": "07 Editar usuario",
+      "code": 200,
+      "responseTime": 125
+    },
+    {
+      "name": "07 Editar usuario",
+      "code": 200,
+      "responseTime": 125
+    },
+    {
+      "name": "08 Desactivar usuario",
+      "code": 200,
+      "responseTime": 113
+    },
+    {
+      "name": "08 Desactivar usuario",
+      "code": 200,
+      "responseTime": 113
+    },
+    {
+      "name": "09 Activar usuario",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "09 Activar usuario",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "10 Registrar paciente ficticio",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "10 Registrar paciente ficticio",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "11 Crear historia",
+      "code": 200,
+      "responseTime": 127
+    },
+    {
+      "name": "11 Crear historia",
+      "code": 200,
+      "responseTime": 127
+    },
+    {
+      "name": "12 Crear atencion Magaly",
+      "code": 200,
+      "responseTime": 126
+    },
+    {
+      "name": "12 Crear atencion Magaly",
+      "code": 200,
+      "responseTime": 126
+    },
+    {
+      "name": "13 Relacion bidireccional JSON",
+      "code": 200,
+      "responseTime": 107
+    },
+    {
+      "name": "14 Editar atencion",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "14 Editar atencion",
+      "code": 200,
+      "responseTime": 106
+    },
+    {
+      "name": "15 Crear consulta medica",
+      "code": 201,
+      "responseTime": 193
+    },
+    {
+      "name": "15 Crear consulta medica",
+      "code": 201,
+      "responseTime": 193
+    },
+    {
+      "name": "16 Crear signos vitales",
+      "code": 201,
+      "responseTime": 184
+    },
+    {
+      "name": "16 Crear signos vitales",
+      "code": 201,
+      "responseTime": 184
+    },
+    {
+      "name": "17 Crear diagnostico",
+      "code": 201,
+      "responseTime": 134
+    },
+    {
+      "name": "17 Crear diagnostico",
+      "code": 201,
+      "responseTime": 134
+    },
+    {
+      "name": "18 Editar diagnostico",
+      "code": 200,
+      "responseTime": 115
+    },
+    {
+      "name": "18 Editar diagnostico",
+      "code": 200,
+      "responseTime": 115
+    },
+    {
+      "name": "19 Eliminar diagnostico de prueba",
+      "code": 204,
+      "responseTime": 154
+    },
+    {
+      "name": "19 Eliminar diagnostico de prueba",
+      "code": 204,
+      "responseTime": 154
+    },
+    {
+      "name": "20 Antecedente",
+      "code": 201,
+      "responseTime": 115
+    },
+    {
+      "name": "20 Antecedente",
+      "code": 201,
+      "responseTime": 115
+    },
+    {
+      "name": "21 Editar antecedente",
+      "code": 200,
+      "responseTime": 122
+    },
+    {
+      "name": "21 Editar antecedente",
+      "code": 200,
+      "responseTime": 122
+    },
+    {
+      "name": "22 No eliminar atencion de otra historia",
+      "code": 404,
+      "responseTime": 105
+    },
+    {
+      "name": "22 No eliminar atencion de otra historia",
+      "code": 404,
+      "responseTime": 105
+    },
+    {
+      "name": "23 Medico sin acceso a usuarios",
+      "code": 403,
+      "responseTime": 92
+    },
+    {
+      "name": "24 Recepcion sin acceso clinico",
+      "code": 403,
+      "responseTime": 92
+    },
+    {
+      "name": "25 Recepcion consulta pacientes",
+      "code": 200,
+      "responseTime": 96
+    },
+    {
+      "name": "26 Escritura sin CSRF denegada",
+      "code": 403,
+      "responseTime": 5
+    },
+    {
+      "name": "27 Auditoria real",
+      "code": 200,
+      "responseTime": 109
+    }
+  ],
+  "variables": [
+    {
+      "type": "any",
+      "value": "http://localhost:8081",
+      "key": "baseUrl"
+    }
+  ]
+}

@@ -1,12 +1,18 @@
 # Sistema de Historia Clinica - Modulo 5
 
-## Proyecto 2 (en desarrollo)
+## Proyecto 2: entrega integrada
 
 La segunda entrega continua este mismo proyecto. Consultar el
 [reparto entre los tres integrantes y contrato de integracion](docs/PROYECTO-2-EQUIPO.md).
-Este avance incorpora auditoria de Atencion Medica; usuarios, roles y seguridad
-quedan asignados a las companeras y pendientes de integracion. No se presenta
-la segunda entrega como terminada ni el sistema como protegido todavia.
+La segunda entrega incorpora relaciones bidireccionales, CRUD relacionado,
+auditoria automatica, usuarios, roles, login y permisos de backend y frontend.
+El aporte de Magaly se conserva en su commit original `2355ca3`; la integracion
+y las correcciones se describen en el documento del equipo. Las exposiciones
+se encuentran en [docs/exposiciones](docs/exposiciones).
+
+Verificacion: 13 pruebas automatizadas exitosas y una ejecucion de la coleccion
+Proyecto 2 con 47 solicitudes HTTP, 30 aserciones y cero fallos. Estos resultados
+corresponden al entorno local probado, no a una certificacion de produccion.
 
 
 Aplicacion web y API REST desarrollada para el laboratorio **Implementacion de Persistencia con Spring Boot e Hibernate**. El equipo construyo un unico sistema de Historia Clinica con Spring Boot, Thymeleaf, JPA, Hibernate y MySQL/MariaDB.
@@ -39,15 +45,25 @@ CREATE DATABASE IF NOT EXISTS historia_clinica
     COLLATE utf8mb4_unicode_ci;
 ```
 
-4. Importar `database/historia_clinica.sql` desde MySQL Workbench. Este archivo contiene la estructura completa de las tablas y relaciones, sin datos personales ni clinicos.
+4. En una base NUEVA, seleccionar `historia_clinica` e importar `database/esquema-proyecto2.sql` desde MySQL Workbench. Contiene las 13 tablas actuales, sin registros ni contrasenas. No importar el esquema sobre tablas existentes. Hibernate tambien puede crear las tablas al iniciar. El archivo `database/historia_clinica.sql` se conserva como entrega anterior y contiene instrucciones de eliminacion de tablas: no ejecutarlo sobre una base con datos.
 5. Desde la raiz del repositorio, donde esta el `pom.xml`, iniciar la aplicacion:
 
 ```powershell
+$env:SPRING_PROFILES_ACTIVE="demo"
+$env:DEMO_ADMINISTRADOR_PASSWORD="CambiarAdmin2026!"
+$env:DEMO_MEDICO_PASSWORD="CambiarMedico2026!"
+$env:DEMO_RECEPCIONISTA_PASSWORD="CambiarRecepcion2026!"
 ./mvnw.cmd spring-boot:run
 ```
 
 6. Abrir [http://localhost:8080](http://localhost:8080). Si el puerto esta ocupado, iniciar con `--server.port=8081` y abrir [http://localhost:8081](http://localhost:8081).
-7. Para validar la integracion, registrar un paciente, crear su historia clinica, abrir su detalle y probar Atenciones, Antecedentes y alergias, y Atencion medica en ese orden.
+7. Ingresar con `admin`, `medico` o `recepcion` y la clave definida arriba. Son ejemplos para una base nueva: cambie las claves antes de compartir el entorno. El perfil demo crea usuarios solo si no existen; no reemplaza claves existentes.
+8. Como administrador, registrar un paciente, crear su historia clinica, abrir su detalle y probar Atenciones, Antecedentes y alergias, y Atencion medica. Luego abrir Usuarios, Roles y Auditoria. Como medico, comprobar el acceso clinico sin administracion. Como recepcionista, comprobar el registro/listado de pacientes y la denegacion de acceso clinico.
+9. Importar `postman/Proyecto-2.postman_collection.json`, configurar `baseUrl`, `adminPassword`, `medicoPassword` y `recepcionPassword` con sus claves y ejecutar en orden. La coleccion obtiene CSRF automaticamente para las operaciones de escritura. Las pruebas crean datos ficticios y dejan registros para revisarlos en la base.
+
+Configuracion opcional: `DB_HOST`, `DB_PORT` (3306 por defecto; 3307 si su instalacion lo requiere), `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `SERVER_PORT`. Para otro puerto en PowerShell: `$env:SERVER_PORT="8081"`. Ejecutar `./mvnw.cmd test` para las pruebas con H2; estas no modifican MySQL.
+
+No se publican claves locales, datos clinicos reales ni hashes de usuarios. Para evaluar desde otra PC, clone y ejecute localmente: `localhost` no permite acceder al servidor de otra persona.
 
 > Importante: la aplicacion final se ejecuta desde la raiz del repositorio. La carpeta `antecedentes/` es el respaldo de la entrega individual original y no debe iniciarse como una segunda aplicacion.
 
