@@ -1,6 +1,7 @@
 package com.coello.historiaclinica.atencionmedica.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -57,10 +58,12 @@ public class SignosVitales {
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 
+    @JsonProperty("imc")
     public BigDecimal calcularImc() {
         return pesoKg.divide(tallaMetros.multiply(tallaMetros), 2, RoundingMode.HALF_UP);
     }
 
+    @JsonProperty("interpretacionImc")
     public String interpretarImc() {
         BigDecimal imc = calcularImc();
         if (imc.compareTo(new BigDecimal("18.50")) < 0) {

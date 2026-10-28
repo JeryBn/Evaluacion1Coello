@@ -53,6 +53,10 @@ class SeguridadIntegrationTest {
             .andExpect(status().isOk()).andExpect(jsonPath("$.codigo").value("CONSULTOR"));
         assertThat(auditoria.findAll()).anySatisfy(a->assertThat(a.getUsuario()).isEqualTo("admin"));
     }
+    @Test void formularioConSesionVencidaVuelveAlLogin() throws Exception {
+        mvc.perform(post("/login").param("username", "admin").param("password", clave))
+            .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/login?expired"));
+    }
     @Test void gestionCompletaYUltimoAdministrador(){
         var rol=gestion.crearRol("AUXILIAR","Auxiliar");
         var u=gestion.crearUsuario("auxiliar",clave,rol.getId());

@@ -12,6 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.config.Customizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CsrfException;
 
 @Configuration
 public class SeguridadConfig {
@@ -37,7 +38,14 @@ public class SeguridadConfig {
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/",true).permitAll())
             .httpBasic(Customizer.withDefaults())
             .exceptionHandling(e -> e.defaultAuthenticationEntryPointFor(
-                    new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), new AntPathRequestMatcher("/api/**")))
+                    new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), new AntPathRequestMatcher("/api/**"))
+                .accessDeniedHandler((request, response, exception) -> {
+                    if (exception instanceof CsrfException && !request.getRequestURI().startsWith("/api/")) {
+                        response.sendRedirect(request.getContextPath() + "/login?expired");
+                    } else {
+                        response.sendError(HttpStatus.FORBIDDEN.value());
+                    }
+                }))
             .logout(logout -> logout.logoutSuccessUrl("/login?logout"))
             .addFilterAfter(new VigenciaUsuarioFilter(usuarios), AnonymousAuthenticationFilter.class);
         return http.build();
